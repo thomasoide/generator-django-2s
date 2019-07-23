@@ -37,6 +37,18 @@ module.exports = function(generator) {
     }
   });
 
+  c.push({
+    name: 'authorName',
+    message: 'Author name',
+    default: generator.user.git.name()
+  });
+
+  c.push({
+    name: 'authorEmail',
+    message: 'Author email',
+    default: generator.user.git.email()
+  });
+
   c = c.map(i => {
     i.message = i.message + '\n';
     return i;
