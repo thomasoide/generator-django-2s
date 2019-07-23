@@ -1,0 +1,31 @@
+{
+  "name": "generator-django-2s",
+  "version": "1.0.0",
+  "description": "A yeoman generator to quickly start a Django project based on the architecture of RJI's The Right to Know Network",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "main": "app/index.js",
+  "files": [
+    "generators",
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "ejs": "^2.6.1",
+    "git-config": "0.0.7",
+    "lodash": "^4.17.10",
+    "update-notifier": "^2.5.0",
+    "yeoman-generator": "^2.0.5"
+  },
+  "devDependencies": {
+    "jest": "^23.5.0",
+    "yeoman-assert": "^3.1.1",
+    "yeoman-test": "^1.9.1"
+  },
+  "author": "Thomas Oide",
+  "license": "MIT"
+}
