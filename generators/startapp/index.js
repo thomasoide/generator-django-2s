@@ -4,7 +4,6 @@ const crypto = require('crypto');
 const chalk = require('chalk');
 const _ = require('lodash');
 const inputs = require('./lib/input.js');
-const outputs = require('./lib/output.js');
 
 const App = class extends Generator {
   constructor(args, opts) {
@@ -12,8 +11,6 @@ const App = class extends Generator {
   }
 
   prompting() {
-    this.log(outputs.welcome())
-
     return this.prompt(inputs(this)).then(answers => {
       this.answers = answers;
     });
@@ -28,7 +25,6 @@ const App = class extends Generator {
     const tContext = {
       _: _,
       answers: this.answers,
-      package: this.pkg,
       env: process.env,
       token: randomToken()
     };
@@ -46,8 +42,8 @@ const App = class extends Generator {
           // Exceptions
           ignore: _.filter(
             _.flatten([
-              // We need to rename this
-              this.templatePath('./.gitignore.tpl'),
+              // Has images and binaries
+              this.templatePath('./assets/**/*'),
             ])
           )
         }
@@ -69,11 +65,11 @@ const App = class extends Generator {
     // );
 
     // Gitignore needs to be renamed
-    this.fs.copyTpl(
-      this.templatePath('.gitignore.tpl'),
-      this.destinationPath('./.gitignore'),
-      tContext
-    );
+    // this.fs.copyTpl(
+    //   this.templatePath('.gitignore.tpl'),
+    //   this.destinationPath('./.gitignore'),
+    //   tContext
+    // );
   }
 
   // All done
