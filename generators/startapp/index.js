@@ -4,6 +4,8 @@ const crypto = require('crypto');
 const chalk = require('chalk');
 const _ = require('lodash');
 const inputs = require('./lib/input.js');
+const path = require('path');
+const outpus = require('./lib/output.js');
 
 const App = class extends Generator {
   constructor(args, opts) {
@@ -11,15 +13,14 @@ const App = class extends Generator {
   }
 
   prompting() {
+    this.log(outputs.welcome());
+
     return this.prompt(inputs(this)).then(answers => {
       this.answers = answers;
     });
   }
 
   writing() {
-    // Package.json
-    // this.pkg = writePackage(this.answers, this.dependencies);
-    // this.fs.writeJSON(this.destinationPath('package.json'), this.pkg);
 
     // Templating context
     const tContext = {
@@ -33,17 +34,17 @@ const App = class extends Generator {
     // files.
     this.fs.copyTpl(
       this.templatePath('./**/*'),
-      this.destinationPath('./'),
+      this.destinationPath(path.join('./', this.answers.djangoAppName)),
       tContext,
       null,
       {
         globOptions: {
           dot: true,
-          // Exceptions
           ignore: _.filter(
             _.flatten([
-              // Has images and binaries
-              this.templatePath('./assets/**/*'),
+              // These are not text files and have subdirectories so they should not be copied as templates
+              this.templatePath('./static/*'),
+              this.templatePath('./templates/**/*')
             ])
           )
         }
@@ -52,30 +53,24 @@ const App = class extends Generator {
 
     // Copy assets (since these are not text files, we don't want to pass
     // through copyTpl)
-    // this.fs.copy(
-    //   this.templatePath('./assets/**/*'),
-    //   this.destinationPath('./assets')
-    // );
-    //
-    // // Copy random assets that needs templating
-    // this.fs.copyTpl(
-    //   this.templatePath('./assets/**/*.json'),
-    //   this.destinationPath('./assets'),
-    //   tContext
-    // );
+    this.fs.copy(
+      this.templatePath('./static/*'),
+      this.destinationPath(path.join('./', this.answers.djangoAppName, 'static', this.answers.djangoAppName)),
+      this.templatePath('./static/img'),
+      this.destinationPath(path.join('./', this.answers.djangoAppName, 'static')),
+      tContext
+    );
 
-    // Gitignore needs to be renamed
-    // this.fs.copyTpl(
-    //   this.templatePath('.gitignore.tpl'),
-    //   this.destinationPath('./.gitignore'),
-    //   tContext
-    // );
+    this.fs.copy(
+      this.templatePath('./templates/**/*'),
+      this.destinationPath(path.join('./', this.answers.djangoAppName, 'templates', this.answers.djangoAppName)),
+      tContext
+    );
   }
 
-  // All done
+  // done
   end() {
-    // this.log(outputs.done());
-    this.log("here's the output!")
+    this.log(outputs.finishedapp());
   }
 };
 

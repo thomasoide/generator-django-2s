@@ -5,12 +5,11 @@ module.exports = {
     return (
       `
    ${chalk.bgCyan.white('                                    ')}
-   ${chalk.bgCyan.white('   ★ Django Project Generator ★     ')}
+   ${chalk.bgCyan.white('   ★ Django App Generator ★         ')}
    ${chalk.bgCyan.white('                                    ')}
 ` +
       chalk.white`
-Welcome! This generator is going to create a Django project for you so that you
-don't have to go through the work of dividing files manually on your own. Please enter some information below.
+You've created your Django project. Now it's time to create a Django app within your project. Please answer the following question. 
 `
     );
   },

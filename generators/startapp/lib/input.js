@@ -7,7 +7,7 @@ module.exports = function(generator) {
   c.push({
     type: 'input',
     name: 'djangoAppName',
-    message: 'Name of the app that will go in the project',
+    message: 'Please enter an app name. Be sure that there are no spaces in the name i.e. "testapp"',
     filter: _.kebabCase,
     required: true,
     validate: function(str) {
@@ -16,13 +16,13 @@ module.exports = function(generator) {
     default: _.kebabCase(generator.djangoAppName)
   });
 
-  c.push({
-    type: 'confirm',
-    name: 'install',
-    message: 'Install app in settings?',
-    required: true,
-    default: true,
-  });
+  // c.push({
+  //   type: 'confirm',
+  //   name: 'install',
+  //   message: 'Install app in settings?',
+  //   required: true,
+  //   default: true,
+  // });
 
   c = c.map(i => {
     i.message = i.message + '\n';

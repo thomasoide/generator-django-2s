@@ -51,6 +51,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # CHANGE THIS LINE
         'DIRS': [
             os.path.join(ROOT_DIR, 'app', 'templates/app')
         ],

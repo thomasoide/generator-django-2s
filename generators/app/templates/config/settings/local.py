@@ -43,6 +43,8 @@ LOGGING = {
 
 STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
+
+# CHANGE THIS LINE
 STATICFILES_DIRS = [
     os.path.join(ROOT_DIR, 'rmp', 'static'),
 ]

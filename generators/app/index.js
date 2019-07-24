@@ -54,20 +54,6 @@ const App = class extends Generator {
       }
     );
 
-    // Copy assets (since these are not text files, we don't want to pass
-    // through copyTpl)
-    // this.fs.copy(
-    //   this.templatePath('./assets/**/*'),
-    //   this.destinationPath('./assets')
-    // );
-    //
-    // // Copy random assets that needs templating
-    // this.fs.copyTpl(
-    //   this.templatePath('./assets/**/*.json'),
-    //   this.destinationPath('./assets'),
-    //   tContext
-    // );
-
     // Gitignore needs to be renamed
     this.fs.copyTpl(
       this.templatePath('.gitignore.tpl'),
@@ -76,10 +62,9 @@ const App = class extends Generator {
     );
   }
 
-  // All done
+  // done
   end() {
-    // this.log(outputs.done());
-    this.log("here's the output!")
+    this.log(outputs.finishedproject());
   }
 };
 
