@@ -29,12 +29,13 @@ When you run `yo django-2s` the resulting file structure should look something l
 ```
 
 - **Pipfile**: This file contains all the packages that you want installed into your environment. It will create a Pipfile.lock when you run `pipenv install`
-- **makefile**: This file contains several commands to run from the command line that will be of use in the development process.
-- **manage.py**: A command-line utility that lets you interact with this Django project in various ways. This plays a big role if you're writing your own custom management commands. You shouldn't have to change this file much.
+- **/config**: This folder holds all three settings files as well as the wsgi file that AWS looks for when deploying `/config/wsgi.py` and url configuration file `config/urls.py` for the entire project.
 - **/data**: Any data in CSVs should go in this directory. If you want you can create subdirectories for each of your Django applications. If you do this, be sure to change your DATA_LOCATION setting to point in the right place.
 - **/docs**: Where README.files live for your specific project.
+- **makefile**: This file contains several commands to run from the command line that will be of use in the development process.
+- **manage.py**: A command-line utility that lets you interact with this Django project in various ways. This plays a big role if you're writing your own custom management commands. You shouldn't have to change this file much.
 - **/resources**: This is a directory that can be deleted if needed. It's a place to put miscellaneous files that are related to your project like ERD diagrams, data dictionaries, etc.
-- **/config**: This folder holds all three settings files as well as the wsgi file that AWS looks for when deploying `/config/wsgi.py` and url configuration file `config/urls.py` for the entire project.
+
 
 
 ## :startapp subgenerator
@@ -68,8 +69,21 @@ These are the primary files you'll be working with since they largely control wh
 A quick rundown of the files:
 
 - **admin.py**: Use this file to register models, so that users can interact with the database from Django's built-in admin interface. Additional docs on admin.py [here](https://docs.djangoproject.com/en/2.2/ref/contrib/admin/).
-- **apps.py**: This is where you should declare a name for your app plus any other application configuration. This is particularly helpful when writing Django's class-based views. Additional docs [here](https://docs.djangoproject.com/en/2.2/ref/applications/)
+- **apps.py**: This is where you should declare a name for your app plus any other application configuration. This is particularly helpful when writing Django's class-based views. Additional docs [here](https://docs.djangoproject.com/en/2.2/ref/applications/).
 - **helpers.py**: A file to write additional functionality outside of Django's main files. For example if your app needed to use requests to hit an API for data, you'd write that function here.
+- **/management/commands/**: A directory to write management commands to run from the command line. This is typically where django-postgres-copy loaders live and any other data processing you need Django to do. Documentation on Django management commands lives [here](https://docs.djangoproject.com/en/2.2/howto/custom-management-commands/).
 - **models.py**: Where you declare information about the data your app will be processing. If your application is going to be using lots of models, it may be more logical for you to create a folder that organizes models into several different files. Examples of that structure [here](https://github.com/rji-futures-lab/django-rmp-data/tree/master/rmp/models). More information about how to write Django models and the fields that Django supports [here](https://docs.djangoproject.com/en/2.2/topics/db/models/).
-- **tests.py**: Write tests for your code here. More information about writing tests in Django [here](https://docs.djangoproject.com/en/2.2/topics/testing/overview/).
+- **/static/<appname>/**: A directory where any static files should live. `python manage.py collectstatic` will look and collect files from this location. Out of the box, this generator will automatically create a css file and JS file for you to write client-side styles, but it'll be up to you to connect them in your templates.
+- **/templates/<appname>/**: A directory where all Django templates should live. All views written in `views.py` will render one of these templates. Django's templating language has lots of built in text filters that can do things like force strings to be uppercase or lowercase, add commas to numbers or format phone numbers. More on django templates [here](https://docs.djangoproject.com/en/2.2/topics/templates/).
+- **tests.py**: Where you write tests for your code. More information about writing tests in Django [here](https://docs.djangoproject.com/en/2.2/topics/testing/overview/).
 - **urls.py**: This is the url configuration file for **just your application**. Route the application's views in this file. More on Django's URL dispatcher [here](https://docs.djangoproject.com/en/2.2/topics/http/urls/).
+- **views.py**: This is the file that serves s the rendering engine for your Django application. The file comes preconfigured to work with either class-based views, function-based views or a combination of both. More docs on writing views [here](https://docs.djangoproject.com/en/2.2/topics/http/views/).
+
+## Additional notes
+
+There has been some movement away from the dynamic webpage and the standard model-view-controller architecture that Django operates off of. One popular way of creating data-driven pages now is to store a dynamic-API endpoint as a JSON file on a place like S3 and use a front-end, component-based framework like Svelte or React to render and drive the page. Luckily Django has packages that make it relatively easy to create a dynamic endpoint:
+
+- [Tastypie](https://django-tastypie.readthedocs.io/en/latest/)
+- [Django REST Framework](https://www.django-rest-framework.org/)
+
+Note that if you choose to use this architecture, your front-end frameworks will probably not live within the templates folder in Django. 
