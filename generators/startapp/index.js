@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const _ = require('lodash');
 const inputs = require('./lib/input.js');
 const path = require('path');
-const outpus = require('./lib/output.js');
+const outputs = require('./lib/output.js');
 
 const App = class extends Generator {
   constructor(args, opts) {

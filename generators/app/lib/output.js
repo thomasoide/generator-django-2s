@@ -5,7 +5,7 @@ module.exports = {
     return (
       `
    ${chalk.bgCyan.white('                                    ')}
-   ${chalk.bgCyan.white('   ★ Django Project Generator ★     ')}
+   ${chalk.bgCyan.black('   ★ Django Project Generator ★     ')}
    ${chalk.bgCyan.white('                                    ')}
 ` +
       chalk.white`
@@ -15,10 +15,10 @@ don't have to go through the work of dividing files manually on your own. Please
     );
   },
 
-  finishedapp: function {
+  finishedapp: function () {
     return (`
       ${chalk.bgCyan.white('                                    ')}
-      ${chalk.bgCyan.white('   ★ We are done! ★                 ')}
+      ${chalk.bgCyan.black('   ★ We are done! ★                 ')}
       ${chalk.bgCyan.white('                                    ')}
 
       Read the ${chalk.yellow('README.md')} that was generated in this project for further instructions on setup.
@@ -30,12 +30,12 @@ don't have to go through the work of dividing files manually on your own. Please
     `);
   },
 
-  finishedproject: function {
+  finishedproject: function () {
     return (`
 
       Read the ${chalk.yellow('README.md')} that was generated in this project for further instructions on setup.
 
-      Be srue to run ${chalk.bgYellow.black(' yo django-2s:startapp ')} and follow the prompts to build an application within your project folder.
+      Be sure to run ${chalk.bgYellow.black(' yo django-2s:startapp ')} and follow the prompts to build an application within your project folder.
 
     `);
   },

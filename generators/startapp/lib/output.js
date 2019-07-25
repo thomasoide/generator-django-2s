@@ -5,19 +5,19 @@ module.exports = {
     return (
       `
    ${chalk.bgCyan.white('                                    ')}
-   ${chalk.bgCyan.white('   ★ Django App Generator ★         ')}
+   ${chalk.bgCyan.black('       ★ Django App Generator ★     ')}
    ${chalk.bgCyan.white('                                    ')}
 ` +
       chalk.white`
-You've created your Django project. Now it's time to create a Django app within your project. Please answer the following question. 
+You've created your Django project. Now it's time to create a Django app within your project. Please answer the following question.
 `
     );
   },
 
-  finishedapp: function {
+  finishedapp: function () {
     return (`
       ${chalk.bgCyan.white('                                    ')}
-      ${chalk.bgCyan.white('   ★ We are done! ★                 ')}
+      ${chalk.bgCyan.black('          ★ We are done! ★          ')}
       ${chalk.bgCyan.white('                                    ')}
 
       Read the ${chalk.yellow('README.md')} that was generated in this project for further instructions on setup.
@@ -29,7 +29,7 @@ You've created your Django project. Now it's time to create a Django app within 
     `);
   },
 
-  finishedproject: function {
+  finishedproject: function () {
     return (`
 
       Read the ${chalk.yellow('README.md')} that was generated in this project for further instructions on setup.
